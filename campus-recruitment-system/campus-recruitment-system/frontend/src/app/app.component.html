@@ -1,0 +1,24 @@
+<div class="container py-4">
+  <h1>Campus Recruitment System</h1>
+
+  <div class="alert alert-info" *ngIf="message">{{ message }}</div>
+
+  <div class="mb-3">
+    <label for="studentSelect" class="form-label">Student auswählen</label>
+    <select id="studentSelect" class="form-select" [(ngModel)]="selectedStudent">
+      <option [ngValue]="null">-- Bitte wählen --</option>
+      <option *ngFor="let s of students" [ngValue]="s">{{ s.name }}</option>
+    </select>
+  </div>
+
+  <h2>Jobs</h2>
+  <div *ngIf="loading">Lade Jobs…</div>
+  <ul class="list-group" *ngIf="!loading">
+    <li class="list-group-item" *ngFor="let job of jobs">
+      <h5>{{ job.title }} <small class="text-muted">({{ job.company?.name }})</small></h5>
+      <p>{{ job.description }}</p>
+      <button class="btn btn-primary" (click)="apply(job)">Bewerben</button>
+    </li>
+    <li class="list-group-item" *ngIf="jobs.length === 0">Keine Jobs vorhanden.</li>
+  </ul>
+</div>
